@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Update Car</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+
+<style>
+    .container {
+        margin-top: 20px; /* spațiere sus */
+    }
+
+    h1 {
+        color: black; /* culoare text h1 */
+    }
+
+    .table-danger th {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" th:href="@{/user/cars/read}">User</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" th:href="@{/user/createCar}">Create</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" th:href="@{/user/cars/read}">Read</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" th:href="@{/user/updateCar/{id}(id=${user.id})}">Update</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" th:href="@{/user/deleteCar}">Delete</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <form th:action="@{~/user/updateCar/{id}(id=${car.id})}" method="post" th:object="${cars}" class="px-4">
+        <table class="table table-bordered table-hover">
+            <thead class="table-danger">
+            <tr>
+                <th>Select</th>
+                <th>Name</th>
+                <th>Model</th>
+                <th>Motor Power</th>
+                <th>Horse Power</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="car : ${cars}">
+                <td>
+                    <input type="checkbox" name="selectedCars" th:value="${car.id}" />
+                </td>
+                <td th:text="${car.name}"></td>
+                <td th:text="${car.model}"></td>
+                <td th:text="${car.motorPower}"></td>
+                <td th:text="${car.horsePower}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <label class="control-label"> Car Name</label>
+        <input type="text" id="name" autofocus="autofocus"
+               class="form-control" required name="name"  placeholder="Enter car name" />
+        <br />
+        <label class="control-label"> Car Model</label>
+        <input type="text" id="model" autofocus="autofocus"
+               class="form-control" required name="model"  placeholder="Enter car model" />
+        <br />
+        <label class="control-label">Motor Power</label>
+        <input type="text"  id="motorPower" autofocus="autofocus"
+               class="form-control" required name="motorPower"  placeholder="Enter car motor power" >
+        <br />
+        <label class="control-label">Horse Power</label>
+        <input type="text"  id="horsePower" autofocus="autofocus"
+               class="form-control" required name="horsePower"  placeholder="Enter car horse power" >
+        <br />
+        <button type="submit" class="btn btn-success">Update</button>
+    </form>
+</div>
+</body>
+
+</html>
